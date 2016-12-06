@@ -28,7 +28,7 @@ desired_dux = desired_ux - state(uxind);
 dydt(uxind) = desired_dux;
 desired_uy = 0; %parameters.K_ventral * (observations(omega_y_ind)- parameters.ref_omega_y);
 desired_duy = desired_uy - state(uyind);
-dydt(uyind) = desired_uy;
+dydt(uyind) = desired_duy;
 
 % z-axis dynamics / control:
 omega_z = -state(vzind) / state(zind);
