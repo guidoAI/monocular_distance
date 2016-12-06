@@ -17,7 +17,7 @@ zind = 5;
 vzind = 6;
 
 % c^2 determines the tau dot to be followed:
-c2 = parameters.ref_tau_dot;
+c2 = -parameters.ref_tau_dot;
 
 % Dynamics : system of equations
 dydt = zeros(10,1);    % a column vector
@@ -27,7 +27,7 @@ dydt(yind) = state(vyind); % dy
 dydt(vyind) = 0; %observations(omega_y_ind) * state(vzind); % dvx; % dvy
 dydt(zind) = state(vzind); % dz
 % cdTTC:
-dydt(vzind) = (1+c2) * (state(vzind) * state(vzind)) / state(zind); % dz
+dydt(vzind) = (1-c2) * (state(vzind) * state(vzind)) / state(zind); % dz
 
 end
 
