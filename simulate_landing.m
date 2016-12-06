@@ -73,7 +73,10 @@ T = 0;
 % for integral control:
 I = 0; 
 
-while(state(zind) >= landing_altitude && state(zind) <= states_over_time(1,zind)+parameters.max_extra_height && T(end) < time_threshold && (~parameters.reached_cov || ~at_cov))
+while(state(zind) >= landing_altitude ...
+        && state(zind) <= states_over_time(1,zind)+parameters.max_extra_height ...
+        && T(end) < time_threshold ...
+        && ~at_cov)
     
     tspan = [t, t+t_step];
     % TODO: observations var can be removed from the ode function
