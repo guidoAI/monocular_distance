@@ -16,7 +16,7 @@ control_with_perfect_measurements(10, -1, 10, []);
 fprintf('Control with delayed perfect measurements...\n');
 control_with_delay(10, -1, 10, [], 10, 30);
 
-% adaptive_control_with_delay(height, velocity, tau_ref, tau_dot_ref, delay_steps, FPS)
+% adaptive_control_with_delay(height, velocity, div_ref, delay_steps, FPS, reached_cov)
 fprintf('Adaptive gain control with delayed perfect measurements - hover experiment...\n');
 heights = 5:5:20;
 gains = zeros(1, length(heights));
