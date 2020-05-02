@@ -76,6 +76,18 @@ I = 0;
 while(state(zind) >= landing_altitude && state(zind) <= states_over_time(1,zind)+parameters.max_extra_height && T(end) < time_threshold && (~parameters.reached_cov || ~at_cov))
     
     tspan = [t, t+t_step];
+    
+    if(parameters.gain_function)
+        % delayed version:
+        if(parameters.gain_function_delay_steps == 0)
+            parameters.K_z = max([parameters.slope_z * state(zind) + parameters.bias_z, parameters.min_Kz]);
+        elseif(size(states_over_time, 1) <= parameters.gain_function_delay_steps)
+            parameters.K_z = max([parameters.slope_z * states_over_time(1, zind) + parameters.bias_z, parameters.min_Kz]);
+        else
+            parameters.K_z = max([parameters.slope_z * states_over_time(end-parameters.gain_function_delay_steps, zind) + parameters.bias_z, parameters.min_Kz]);
+        end
+    end
+    
     % TODO: observations var can be removed from the ode function
     % depending on the method, call the right ode function:
     if(METHOD == PERFECT_LANDING)
