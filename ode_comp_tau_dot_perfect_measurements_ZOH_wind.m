@@ -40,6 +40,11 @@ if(~parameters.wind_gusts)
 else
     v_air = sin(parameters.wg_period*t)*parameters.wg_magnitude + parameters.v_air_up - state(vzind);
 end
+if(parameters.planned_disturbance)
+    if(t >= parameters.disturbance_time && t <= parameters.disturbance_time + parameters.disturbance_duration)
+        v_air = v_air + parameters.disturbance_magnitude;
+    end
+end
 drag = double(sign(v_air)) .* 0.5 .* parameters.rho .* parameters.CD .* parameters.A .* v_air.^2;
 if(parameters.actuator_effectiveness)
     dydt(vzind) = ((getForceActuator(uz, v_air) + drag)/state(massind) - parameters.gravity); % dvz

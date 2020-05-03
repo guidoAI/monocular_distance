@@ -1,4 +1,7 @@
 function [states_over_time, observations_over_time, parameters_over_time, T] = simulate_landing(parameters)
+% function [states_over_time, observations_over_time, parameters_over_time, T] = simulate_landing(parameters)
+%
+% Simulate an optical flow landing.
 
 if(~exist('parameters', 'var') || isempty(parameters))
     parameters = get_standard_parameters();

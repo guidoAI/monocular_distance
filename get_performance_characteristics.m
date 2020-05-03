@@ -26,13 +26,21 @@ end
 
 % percentage overshoot absolute value of the first peak divided by the absolute reference value:
 try
-    [pks,locs] = findpeaks(-signal);
+    if(length(signal) >= 3 && rise_time ~= 1000)
+        [pks,locs] = findpeaks(-signal);
+        if(isempty(pks))
+            pks = [max(-signal)];
+        end
+        ratio = abs(pks(1)) / abs(reference);
+        percentage_overshoot = 100 * (abs(ratio - 1));
+        % mean absolute error:
+        mean_absolute_error = mean(abs(signal - reference));
+    else
+        rise_time = 1000;
+        percentage_overshoot = 1000;
+        mean_absolute_error = 100000;
+    end
 catch e
     warning('An error occurred in get_performance_characteristics, while searching for peaks.')
 end
-ratio = abs(pks(1)) / abs(reference);
-percentage_overshoot = 100 * (abs(ratio - 1));
-
-% mean absolute error:
-mean_absolute_error = mean(abs(signal - reference));
 
